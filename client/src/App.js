@@ -12,11 +12,23 @@ class App extends Component {
     })
   }
 
+  onSubmitCar(){
+    axios.post('/api/addcar',{
+      brand: 'Ford',
+      model: 'Focus',
+      year: '2021',
+      avail: true
+    })
+    .then( response => {
+      console.log(response.data)
+    })
+  }
+
 
   render(){
   return (
     <div className="App">
-        <button onClick={()=>this.addUser()}>Add User</button>
+        <button onClick={()=>this.onSubmitCar()}>Add Car</button>
     </div>
   )
 }
