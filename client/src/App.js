@@ -3,18 +3,20 @@ import axios from 'axios';
 
 class App extends Component {
 
-  // componentDidMount(){
-  //   axios.get('/api/users')
-  //   .then( response =>{
-  //     console.log(response.data)
-  //   })
-  // }
+  addUser(){
+    axios.get('/api/users')
+    .then( response =>{
+      console.log(response.data)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 
 
   render(){
   return (
     <div className="App">
-        Hello
+        <button onClick={()=>this.addUser()}>Add User</button>
     </div>
   )
 }
