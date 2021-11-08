@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-const mongoUri = 'mongodb+srv://@cluster0.omxue.mongodb.net/awesomeapp?retryWrites=true&w=majority';
+const mongoUri = 'mongodb+srv://x:X@cluster0.omxue.mongodb.net/awesomeapp?retryWrites=true&w=majority';
 mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -39,6 +39,15 @@ app.post('/api/addcar', (req,res)=>{
             return console.log(err)
         }
         res.status(200).json(doc)
+    })
+})
+
+app.get('/api/getcars',(req,res)=>{
+    Car.find({brand:'Citroen'},(err, docs)=>{
+        if(err){
+            return console.log(err)
+        }
+        res.json(docs)
     })
 })
 
