@@ -49,12 +49,23 @@ class App extends Component {
     })
   }
 
+  onCarUpdate(){
+    axios.post('/api/updateCar',{
+      id: '6187afc0914fd137ebf7b7a1',
+      brand:'BMW'
+    })
+    .then(response => {
+      this.getCars()
+    })
+  }
+
 
   render(){
   return (
     <div className="App">
         <button onClick={()=>this.onSubmitCar()}>Add Car</button>
         <button onClick={()=> this.onCarRemove()}>Remove Car</button>
+        <button onClick={()=> this.onCarUpdate()}>UpdateCar</button>
         <hr/>
         { this.state.cars.map((car)=>{
           return(

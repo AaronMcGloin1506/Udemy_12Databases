@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-const mongoUri = 'mongodb+srv://X:X@cluster0.omxue.mongodb.net/awesomeapp?retryWrites=true&w=majority';
+const mongoUri = 'mongodb+srv://x:x@cluster0.omxue.mongodb.net/awesomeapp?retryWrites=true&w=majority';
 mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -69,6 +69,48 @@ app.post('/api/removeCar',(req,res)=>{
             return console.log(err)
         }
         res.json(docs)
+    })
+})
+
+// app.post('/api/updateCar',(req,res)=>{
+//     const id = req.body.id
+//     const brand = req.body.brand
+//     Car.update({_id:id},{$set:{brand:brand}},(err,docs)=> {
+//         if(err){
+//             return console.log(err)
+//         }
+//         res.json(docs)
+//     })
+// })
+
+// app.post('/api/updateCar',(req,res)=>{
+//     const id = req.body.id
+//     const brand = req.body.brand
+//     Car.findByIdAndUpdate(id,{$set:{brand:brand}},{new:true},(err,docs)=> {
+//         if(err){
+//             return console.log(err)
+//         }
+//         res.json(docs)
+//         console.log(docs)
+//     })
+// })
+
+app.post('/api/updateCar',(req,res)=>{
+    const id = req.body.id
+    const brand = req.body.brand
+    Car.findById(id,(err,car)=> {
+        if(err){
+            return console.log(err)
+        }
+        car.set({
+            brand:brand
+        });
+        car.save((err,doc)=>{
+            if(err){
+                return console.log(err)
+            }
+            res.json(doc)
+        })
     })
 })
 
