@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-const mongoUri = 'mongodb+srv://x:X@cluster0.omxue.mongodb.net/awesomeapp?retryWrites=true&w=majority';
+const mongoUri = 'mongodb+srv://X:X@cluster0.omxue.mongodb.net/awesomeapp?retryWrites=true&w=majority';
 mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -43,7 +43,28 @@ app.post('/api/addcar', (req,res)=>{
 })
 
 app.get('/api/getcars',(req,res)=>{
-    Car.find({brand:'Citroen'},(err, docs)=>{
+    Car.find((err, docs)=>{
+        if(err){
+            return console.log(err)
+        }
+        res.json(docs)
+    })
+})
+
+// app.post('/api/removeCar',(req,res)=>{
+//     const brand = req.body.brand
+//     Car.findOneAndRemove({brand:brand},(err,docs) =>{
+//         if(err){
+//             return console.log(err)
+//         }
+//         res.json(docs)
+//     })
+// })
+
+// carefull if you dont put in a "brand" it will remover everything from database
+app.post('/api/removeCar',(req,res)=>{
+    const brand = req.body.brand
+    Car.remove({brand:brand},(err,docs) =>{
         if(err){
             return console.log(err)
         }
